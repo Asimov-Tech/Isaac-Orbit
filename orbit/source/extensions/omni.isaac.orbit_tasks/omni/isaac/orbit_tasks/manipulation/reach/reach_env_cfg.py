@@ -214,7 +214,7 @@ class CurriculumCfg:
 # Environment configuration
 ##
 
-
+#new commit thing 
 @configclass
 class ReachEnvCfg(RLTaskEnvCfg):
     """Configuration for the reach end-effector pose tracking environment."""
