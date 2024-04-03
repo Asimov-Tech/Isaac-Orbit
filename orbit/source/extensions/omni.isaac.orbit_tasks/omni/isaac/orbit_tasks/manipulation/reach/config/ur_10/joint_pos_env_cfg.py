@@ -12,6 +12,7 @@ from omni.isaac.orbit.utils import configclass
 import omni.isaac.orbit_tasks.manipulation.reach.mdp as mdp
 from omni.isaac.orbit_tasks.manipulation.reach.reach_env_cfg import ReachEnvCfg
 
+
 ##
 # Pre-defined configs
 ##
@@ -21,7 +22,7 @@ from omni.isaac.orbit_assets import UR10_CFG  # isort: skip
 ##
 # Environment configuration
 ##
-
+#ddawdwadwa
 
 @configclass
 class UR10ReachEnvCfg(ReachEnvCfg):
