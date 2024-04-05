@@ -17,7 +17,7 @@ class UR10ReachPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
     max_iterations = 1000
     save_interval = 50
-    experiment_name = "reach_ur10"
+    experiment_name = "task-board"
     run_name = ""
     resume = False
     empirical_normalization = False

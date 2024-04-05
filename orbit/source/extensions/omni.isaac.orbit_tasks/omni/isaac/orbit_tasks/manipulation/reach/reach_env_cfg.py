@@ -115,12 +115,18 @@ class CommandsCfg:
         resampling_time_range=(4.0, 4.0),
         debug_vis=True,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
-            pos_x=(0.2, 0.2),
-            pos_y=(-0.2, 0.2),
-            pos_z=(0.2, 0.25),
-            roll=(0.0, 0.0),
-            pitch=MISSING,  # depends on end-effector axis
-            yaw=(-3.14, 3.14),
+            #pos_x=(0.2, 0.2),
+            #pos_y=(-0.2, 0.2),
+            #pos_z=(0.2, 0.25),
+            #roll=(0.0, 0.0),
+            #pitch=MISSING,  # depends on end-effector axis
+            #yaw=(-3.14, 3.14),
+            pos_x=(0, 0),
+            pos_y=(0.482, 0.482),
+            pos_z=(0.165, 0.165),
+            roll=(0,0),
+            pitch=(0,0),  # depends on end-effector
+            yaw=(0,0), 
         ),
     )
 
