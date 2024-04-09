@@ -32,11 +32,16 @@ class UR10ReachEnvCfg(ReachEnvCfg):
 
         # switch robot to ur10
         self.scene.robot = UR10_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
+
+        
         # override randomization
         self.randomization.reset_robot_joints.params["position_range"] = (0.75, 1.25)
         # override rewards
         self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["flange"]
         self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["flange"]
+
+        #self.rewards.end_effector_position_tracking.params["asset_cfg"].body_names = ["gripper"]
+        #self.rewards.end_effector_orientation_tracking.params["asset_cfg"].body_names = ["gripper"]
         # override actions
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True
