@@ -10,7 +10,7 @@ from __future__ import annotations
 import torch
 from collections.abc import Sequence
 from typing import TYPE_CHECKING
-
+import numpy as np
 from omni.isaac.orbit.assets import Articulation
 from omni.isaac.orbit.managers import CommandTerm
 from omni.isaac.orbit.markers import VisualizationMarkers
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 
     from .commands_cfg import UniformPoseCommandCfg
 
-
+gob = 0.0
 class UniformPoseCommand(CommandTerm):
     """Command generator for generating pose commands uniformly.
 
@@ -90,10 +90,47 @@ class UniformPoseCommand(CommandTerm):
     Implementation specific functions.
     """
 
+    gob = 0
     def _resample_command(self, env_ids: Sequence[int]):
         # sample new pose targets
         # -- position
         r = torch.empty(len(env_ids), device=self.device)
+    
+
+
+        rng_numb = np.random.randint(1,10)
+
+
+
+        match rng_numb:
+            case 1:
+                self.cfg.ranges.pos_x = [-0.11, -0.11]
+                self.cfg.ranges.pos_z = [ .165, .165]
+            case 2:
+                self.cfg.ranges.pos_x = [0., 0.]
+                self.cfg.ranges.pos_z = [.165, .165]
+            case 3:
+                self.cfg.ranges.pos_x = [ 0.11,  0.11]
+                self.cfg.ranges.pos_z = [ .165, .165]
+            case 4:
+                self.cfg.ranges.pos_x = [-0.11, -0.11]
+                self.cfg.ranges.pos_z = [.33, 0.33]        
+            case 5:
+                self.cfg.ranges.pos_x = [0.0, 0.0]
+                self.cfg.ranges.pos_z = [.33, .33] 
+            case 6:
+                self.cfg.ranges.pos_x = [0.11, 0.11]
+                self.cfg.ranges.pos_z = [.33, .33] 
+            case 7:
+                self.cfg.ranges.pos_x = [0., 0.]
+                self.cfg.ranges.pos_z = [.0, 0.0] 
+            case 8:
+                self.cfg.ranges.pos_x = [0.11, 0.11]
+                self.cfg.ranges.pos_z = [0.0, 0.0] 
+            case 9:
+                self.cfg.ranges.pos_x = [-0.11,  -0.11]
+                self.cfg.ranges.pos_z = [ 0.0, 0.0]             
+    
         self.pose_command_b[env_ids, 0] = r.uniform_(*self.cfg.ranges.pos_x)
         self.pose_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.pos_y)
         self.pose_command_b[env_ids, 2] = r.uniform_(*self.cfg.ranges.pos_z)
@@ -104,6 +141,7 @@ class UniformPoseCommand(CommandTerm):
         euler_angles[:, 0].uniform_(*self.cfg.ranges.yaw)
         self.pose_command_b[env_ids, 3:] = quat_from_euler_xyz(
             euler_angles[:, 0], euler_angles[:, 1], euler_angles[:, 2]
+            #0,0,0
         )
 
     def _update_command(self):

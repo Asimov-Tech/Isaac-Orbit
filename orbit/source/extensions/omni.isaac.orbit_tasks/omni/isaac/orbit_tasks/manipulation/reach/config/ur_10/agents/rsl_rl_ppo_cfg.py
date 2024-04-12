@@ -15,7 +15,7 @@ from omni.isaac.orbit_tasks.utils.wrappers.rsl_rl import (
 @configclass
 class UR10ReachPPORunnerCfg(RslRlOnPolicyRunnerCfg):
     num_steps_per_env = 24
-    max_iterations = 1000
+    max_iterations = 5000
     save_interval = 50
     experiment_name = "task-board"
     run_name = ""
