@@ -19,6 +19,7 @@ from omni.isaac.orbit_tasks.manipulation.lift.lift_env_cfg import LiftEnvCfg
 ##
 from omni.isaac.orbit.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.orbit_assets.franka import FRANKA_PANDA_CFG  # isort: skip
+from omni.isaac.orbit_assets.universal_robots import UR10_CFG
 
 
 @configclass
@@ -28,25 +29,27 @@ class FrankaCubeLiftEnvCfg(LiftEnvCfg):
         super().__post_init__()
 
         # Set Franka as robot
-        self.scene.robot = FRANKA_PANDA_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
-
+        UR10_CFG.init_state.pos = (0.0, 0.0, 0)
+        self.scene.robot = UR10_CFG.replace(prim_path="{ENV_REGEX_NS}/robot")
+        
         # Set actions for the specific robot type (franka)
         self.actions.body_joint_pos = mdp.JointPositionActionCfg(
-            asset_name="robot", joint_names=["panda_joint.*"], scale=0.5, use_default_offset=True
+            asset_name="robot", joint_names=[".*"], scale=0.5, use_default_offset=True
         )
+
         self.actions.finger_joint_pos = mdp.BinaryJointPositionActionCfg(
             asset_name="robot",
-            joint_names=["panda_finger.*"],
-            open_command_expr={"panda_finger_.*": 0.04},
-            close_command_expr={"panda_finger_.*": 0.0},
-        )
+            joint_names=["grip_.*"],
+            open_command_expr={"grip_.*": 0.0},
+            close_command_expr={"grip_.*": -0.06},
+        )        
         # Set the body name for the end effector
-        self.commands.object_pose.body_name = "panda_hand"
+        self.commands.object_pose.body_name = "tool0"
 
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.5, 0, 0.055], rot=[1, 0, 0, 0]),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.24, 0, 0.05], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
                 scale=(0.8, 0.8, 0.8),
@@ -66,12 +69,12 @@ class FrankaCubeLiftEnvCfg(LiftEnvCfg):
         marker_cfg.markers["frame"].scale = (0.1, 0.1, 0.1)
         marker_cfg.prim_path = "/Visuals/FrameTransformer"
         self.scene.ee_frame = FrameTransformerCfg(
-            prim_path="{ENV_REGEX_NS}/Robot/panda_link0",
+            prim_path="{ENV_REGEX_NS}/robot/base_link",
             debug_vis=False,
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
-                    prim_path="{ENV_REGEX_NS}/Robot/panda_hand",
+                    prim_path="{ENV_REGEX_NS}/robot/tool0",
                     name="end_effector",
                     offset=OffsetCfg(
                         pos=[0.0, 0.0, 0.1034],
