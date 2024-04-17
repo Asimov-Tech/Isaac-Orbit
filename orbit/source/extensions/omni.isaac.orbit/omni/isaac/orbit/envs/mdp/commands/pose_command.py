@@ -90,7 +90,7 @@ class UniformPoseCommand(CommandTerm):
     Implementation specific functions.
     """
 
-    gob = 0
+
     def _resample_command(self, env_ids: Sequence[int]):
         # sample new pose targets
         # -- position
@@ -98,38 +98,38 @@ class UniformPoseCommand(CommandTerm):
     
 
 
-        rng_numb = np.random.randint(1,10)
-
-
-
-        match rng_numb:
-            case 1:
-                self.cfg.ranges.pos_x = [-0.11, -0.11]
-                self.cfg.ranges.pos_z = [ .165, .165]
-            case 2:
-                self.cfg.ranges.pos_x = [0., 0.]
-                self.cfg.ranges.pos_z = [.165, .165]
-            case 3:
-                self.cfg.ranges.pos_x = [ 0.11,  0.11]
-                self.cfg.ranges.pos_z = [ .165, .165]
-            case 4:
-                self.cfg.ranges.pos_x = [-0.11, -0.11]
-                self.cfg.ranges.pos_z = [.33, 0.33]        
-            case 5:
-                self.cfg.ranges.pos_x = [0.0, 0.0]
-                self.cfg.ranges.pos_z = [.33, .33] 
-            case 6:
-                self.cfg.ranges.pos_x = [0.11, 0.11]
-                self.cfg.ranges.pos_z = [.33, .33] 
-            case 7:
-                self.cfg.ranges.pos_x = [0., 0.]
-                self.cfg.ranges.pos_z = [.0, 0.0] 
-            case 8:
-                self.cfg.ranges.pos_x = [0.11, 0.11]
-                self.cfg.ranges.pos_z = [0.0, 0.0] 
-            case 9:
-                self.cfg.ranges.pos_x = [-0.11,  -0.11]
-                self.cfg.ranges.pos_z = [ 0.0, 0.0]             
+        #rng_numb = np.random.randint(1,10)
+#
+#
+#
+        #match rng_numb:
+        #    case 1:
+        #        self.cfg.ranges.pos_x = [-0.11, -0.11]
+        #        self.cfg.ranges.pos_z = [ .165, .165]
+        #    case 2:
+        #        self.cfg.ranges.pos_x = [0., 0.]
+        #        self.cfg.ranges.pos_z = [.165, .165]
+        #    case 3:
+        #        self.cfg.ranges.pos_x = [ 0.11,  0.11]
+        #        self.cfg.ranges.pos_z = [ .165, .165]
+        #    case 4:
+        #        self.cfg.ranges.pos_x = [-0.11, -0.11]
+        #        self.cfg.ranges.pos_z = [.33, 0.33]        
+        #    case 5:
+        #        self.cfg.ranges.pos_x = [0.0, 0.0]
+        #        self.cfg.ranges.pos_z = [.33, .33] 
+        #    case 6:
+        #        self.cfg.ranges.pos_x = [0.11, 0.11]
+        #        self.cfg.ranges.pos_z = [.33, .33] 
+        #    case 7:
+        #        self.cfg.ranges.pos_x = [0., 0.]
+        #        self.cfg.ranges.pos_z = [.0, 0.0] 
+        #    case 8:
+        #        self.cfg.ranges.pos_x = [0.11, 0.11]
+        #        self.cfg.ranges.pos_z = [0.0, 0.0] 
+        #    case 9:
+        #        self.cfg.ranges.pos_x = [-0.11,  -0.11]
+        #        self.cfg.ranges.pos_z = [ 0.0, 0.0]             
     
         self.pose_command_b[env_ids, 0] = r.uniform_(*self.cfg.ranges.pos_x)
         self.pose_command_b[env_ids, 1] = r.uniform_(*self.cfg.ranges.pos_y)

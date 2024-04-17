@@ -109,26 +109,26 @@ class ReachSceneCfg(InteractiveSceneCfg):
 class CommandsCfg:
     """Command terms for the MDP."""
 
-    ee_pose = mdp.UniformPoseCommandCfg(
-        asset_name="robot",
-        body_name=MISSING,
-        resampling_time_range=(4.0, 4.0),
-        debug_vis=True,
-        ranges=mdp.UniformPoseCommandCfg.Ranges(
-            #pos_x=(0.2, 0.2),
-            #pos_y=(-0.2, 0.2),
-            #pos_z=(0.2, 0.25),
-            #roll=(0.0, 0.0),
-            #pitch=MISSING,  # depends on end-effector axis
-            #yaw=(-3.14, 3.14),
-            pos_x=(0, 0),
-            pos_y=(0.482, 0.482),
-            pos_z=(0.165, 0.165),
-            roll=(0,0),
-            pitch=(0,0),  # depends on end-effector
-            yaw=(0,0), 
-        ),
-    )
+#    ee_pose = mdp.UniformPoseCommandCfg(
+#        asset_name="robot",
+#        body_name=MISSING,
+#        resampling_time_range=(4.0, 4.0),
+#        debug_vis=True,
+#        ranges=mdp.UniformPoseCommandCfg.Ranges(
+#            #pos_x=(0.2, 0.2),
+#            #pos_y=(-0.2, 0.2),
+#            #pos_z=(0.2, 0.25),
+#            #roll=(0.0, 0.0),
+#            #pitch=MISSING,  # depends on end-effector axis
+#            #yaw=(-3.14, 3.14),
+#            pos_x=(0, 0),
+#            pos_y=(0.482, 0.482),
+#            pos_z=(0.165, 0.165),
+#            roll=(0,0),
+#            pitch=(0,0),  # depends on end-effector
+#            yaw=(0,0), 
+#        ),
+#    )
 
 
 @configclass
@@ -148,9 +148,9 @@ class ObservationsCfg:
         """Observations for policy group."""
 
         # observation terms (order preserved)
-        joint_pos = ObsTerm(func=mdp.joint_pos_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
-        joint_vel = ObsTerm(func=mdp.joint_vel_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
-        pose_command = ObsTerm(func=mdp.generated_commands, params={"command_name": "ee_pose"})
+        #joint_pos = ObsTerm(func=mdp.joint_pos_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
+        #joint_vel = ObsTerm(func=mdp.joint_vel_rel, noise=Unoise(n_min=-0.01, n_max=0.01))
+        #pose_command = ObsTerm(func=mdp.generated_commands, params={"command_name": "ee_pose"})
         actions = ObsTerm(func=mdp.last_action)
 
         def __post_init__(self):
@@ -180,16 +180,16 @@ class RewardsCfg:
     """Reward terms for the MDP."""
 
     # task terms
-    end_effector_position_tracking = RewTerm(
-        func=mdp.position_command_error,
-        weight=-0.2,
-        params={"asset_cfg": SceneEntityCfg("robot", body_names=MISSING), "command_name": "ee_pose"},
-    )
-    end_effector_orientation_tracking = RewTerm(
-        func=mdp.orientation_command_error,
-        weight=-0.05,
-        params={"asset_cfg": SceneEntityCfg("robot", body_names=MISSING), "command_name": "ee_pose"},
-    )
+    #end_effector_position_tracking = RewTerm(
+    #    func=mdp.position_command_error,
+    #    weight=-0.2,
+    #    params={"asset_cfg": SceneEntityCfg("robot", body_names=MISSING), "command_name": "ee_pose"},
+    #)
+    #end_effector_orientation_tracking = RewTerm(
+    #    func=mdp.orientation_command_error,
+    #    weight=-0.05,
+    #    params={"asset_cfg": SceneEntityCfg("robot", body_names=MISSING), "command_name": "ee_pose"},
+    #)
 
     # action penalty
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-0.0001)

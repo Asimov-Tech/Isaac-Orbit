@@ -25,8 +25,9 @@ from omni.isaac.orbit.utils.assets import ISAAC_ORBIT_NUCLEUS_DIR
 UR10_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
         #usd_path=f"{ISAAC_ORBIT_NUCLEUS_DIR}/Robots/UniversalRobots/UR10/ur10_instanceable.usd",
-        usd_path="/home/chris/Desktop/ws_sims/Models/ur3e.usd",
+        #usd_path="/home/chris/Desktop/ws_sims/Models/ur3e.usd",
         #usd_path="/home/chris/Desktop/ws_sims/Models/ur3e_gripper.usd",
+        usd_path="/home/chris/Desktop/ws_sims/Models/ur3e_gripper(copy).usd",
         #usd_path="/home/chris/Desktop/ws_sims/Models/ur3e2.usd",
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,

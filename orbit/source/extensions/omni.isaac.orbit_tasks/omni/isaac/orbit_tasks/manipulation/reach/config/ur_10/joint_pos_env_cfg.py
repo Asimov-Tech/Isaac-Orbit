@@ -11,7 +11,7 @@ from omni.isaac.orbit.utils import configclass
 
 import omni.isaac.orbit_tasks.manipulation.reach.mdp as mdp
 from omni.isaac.orbit_tasks.manipulation.reach.reach_env_cfg import ReachEnvCfg
-
+from omni.isaac.orbit_tasks.manipulation.lift import mdp as mdpLift
 
 ##
 # Pre-defined configs
