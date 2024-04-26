@@ -81,7 +81,7 @@ class CommandsCfg:
         resampling_time_range=(5.0, 5.0),
         debug_vis=True,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
-            pos_x=(0.1, 0.19), pos_y=(-0.15, 0.15), pos_z=(0.1, 0.15), roll=(0.0, 0.0), pitch=(0.0, 0.0), yaw=(0.0, 0.0)
+            pos_x=(0.3, 0.3), pos_y=(0.15, 0.15), pos_z=(0.25,0.25), roll=(-1.57,-1.57), pitch=(-1.57,-1.57), yaw=(0,0)
         ),
     )
 
@@ -127,7 +127,7 @@ class RandomizationCfg:
         func=mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.075, 0.075), "y": (-0.075, 0.075), "z": (0.0, 0.0)},
+            "pose_range": {"x": (-0.05, 0.05), "y": (-0.05, 0.05), "z": (0.0, 0.0)},
             "velocity_range": {},
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
         },
@@ -141,6 +141,9 @@ class RewardsCfg:
     reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
 
     lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.06}, weight=15.0)
+
+
+    #lifting_object_max =RewTerm(func=mdp.object_is_lifted_max, params={"minimal_height": 0.6}, weight=1) 
 
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
@@ -173,6 +176,11 @@ class TerminationsCfg:
     object_dropping = DoneTerm(
         func=mdp.base_height, params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")}
     )
+
+
+#    object_dropping_max = DoneTerm(
+#        func=mdp.base_height_max, params={"minimum_height": 0.5, "asset_cfg": SceneEntityCfg("object")}
+#    )
 
 
 @configclass

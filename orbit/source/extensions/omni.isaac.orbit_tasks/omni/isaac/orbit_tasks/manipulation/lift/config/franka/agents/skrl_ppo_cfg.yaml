@@ -11,16 +11,16 @@ models:
     min_log_std: -20.0
     max_log_std: 2.0
     input_shape: "Shape.STATES"
-    hiddens: [256, 128, 64]
-    hidden_activation: ["elu", "elu", "elu"]
+    hiddens: [512, 256, 128, 64]
+    hidden_activation: ["elu","elu", "elu", "elu"]
     output_shape: "Shape.ACTIONS"
     output_activation: ""
     output_scale: 1.0
   value:  # see skrl.utils.model_instantiators.deterministic_model for parameter details
     clip_actions: False
     input_shape: "Shape.STATES"
-    hiddens: [256, 128, 64]
-    hidden_activation: ["elu", "elu", "elu"]
+    hiddens: [512, 256, 128, 64]
+    hidden_activation: ["elu","elu", "elu", "elu"]
     output_shape: "Shape.ONE"
     output_activation: ""
     output_scale: 1.0
@@ -34,7 +34,7 @@ agent:
   mini_batches: 8
   discount_factor: 0.99
   lambda: 0.95
-  learning_rate: 3.e-4
+  learning_rate: 6.e-4
   learning_rate_scheduler: "KLAdaptiveLR"
   learning_rate_scheduler_kwargs:
     kl_threshold: 0.008

@@ -25,6 +25,16 @@ def object_is_lifted(
     return torch.where(object.data.root_pos_w[:, 2] > minimal_height, 1.0, 0.0)
 
 
+
+#def object_is_lifted_max(
+#    env: RLTaskEnv, minimal_height: float, object_cfg: SceneEntityCfg = SceneEntityCfg("object")
+#) -> torch.Tensor:
+#    """Reward the agent for lifting the object above the minimal height."""
+#    object: RigidObject = env.scene[object_cfg.name]
+#    return torch.where(object.data.root_pos_w[:, 2] < minimal_height, 1.0, 0.0)
+
+
+
 def object_ee_distance(
     env: RLTaskEnv,
     std: float,
@@ -65,3 +75,5 @@ def object_goal_distance(
     distance = torch.norm(des_pos_w - object.data.root_pos_w[:, :3], dim=1)
     # rewarded if the object is lifted above the threshold
     return (object.data.root_pos_w[:, 2] > minimal_height) * (1 - torch.tanh(distance / std))
+
+

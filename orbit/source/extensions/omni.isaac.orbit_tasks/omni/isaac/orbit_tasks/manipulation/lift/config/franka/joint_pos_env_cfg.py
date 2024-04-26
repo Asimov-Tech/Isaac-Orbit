@@ -41,7 +41,7 @@ class FrankaCubeLiftEnvCfg(LiftEnvCfg):
             asset_name="robot",
             joint_names=["grip_.*"],
             open_command_expr={"grip_.*": 0.0},
-            close_command_expr={"grip_.*": -0.06},
+            close_command_expr={"grip_.*": -0.09},
         )        
         # Set the body name for the end effector
         self.commands.object_pose.body_name = "tool0"
@@ -49,7 +49,7 @@ class FrankaCubeLiftEnvCfg(LiftEnvCfg):
         # Set Cube as object
         self.scene.object = RigidObjectCfg(
             prim_path="{ENV_REGEX_NS}/Object",
-            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.24, 0, 0.05], rot=[1, 0, 0, 0]),
+            init_state=RigidObjectCfg.InitialStateCfg(pos=[0.4, 0, 0.05], rot=[1, 0, 0, 0]),
             spawn=UsdFileCfg(
                 usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
                 scale=(0.8, 0.8, 0.8),
